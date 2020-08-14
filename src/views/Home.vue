@@ -1,6 +1,8 @@
 <template>
   <div class="home-container">
-    <router-view></router-view>
+    <transition>
+      <router-view></router-view>
+    </transition>
     <van-grid :column-num="3" class="bt-nav">
       <van-grid-item text="首页" to="/page">
         <i slot="icon" class="iconfont icon-1"></i>
@@ -16,7 +18,7 @@
 </template>
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
 }
 </script>
 <style lang="less" scoped>

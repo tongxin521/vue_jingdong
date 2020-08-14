@@ -1,7 +1,7 @@
 <template>
   <div class="my-container">
     <van-nav-bar title="个人中心" />
-    <van-cell title="登录/注册" to="/login">
+    <van-cell title="登录/注册" @click="$router.push({name:'login',params:{routerType:'push'}})">
       <img
         class="use-photo"
         slot="icon"

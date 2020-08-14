@@ -1,18 +1,13 @@
 <template>
-  <div class="goods-details">
+  <div class="goods-details" @scroll="onScroll">
     <!-- 标题 -->
-    <van-nav-bar title="商品详情">
+    <van-nav-bar title="商品详情" :style="navbarStyle">
       <div slot="left" @click="$router.back()">
-        <img src="@/assets/img/55.svg" alt />
+        <img :src="navbarLeftImg" alt />
       </div>
     </van-nav-bar>
     <!-- 轮播图 -->
-    <van-swipe
-      class="my-swipe"
-      :autoplay="3000"
-      indicator-color="white"
-      @change="onChange"
-    >
+    <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" @change="onChange">
       <van-swipe-item v-for="(item, index) in goods.swiperImgs" :key="index">
         <img slot="default" :src="item" alt />
       </van-swipe-item>
@@ -73,16 +68,16 @@
     <!-- 加入购物车立即购买 -->
     <div class="footer">
       <!-- 加入购物车 -->
-      <van-button type="warning" class="shopping-cart" @click="addShoppingCart"
-        >加入购物车</van-button
-      >
+      <van-button type="warning" class="shopping-cart" @click="addShoppingCart">加入购物车</van-button>
       <!-- 立即购买 -->
       <van-button
         type="warning"
         class="buy-now"
-        @click="$router.push(`/buy/now/${id}`)"
-        >立即购买</van-button
-      >
+        @click="$router.push({name:'buynow',params:{
+        id:id,
+        routerType:'push'
+      }})"
+      >立即购买</van-button>
     </div>
   </div>
 </template>
@@ -92,13 +87,20 @@ export default {
   props: {
     id: {
       type: [String, Number],
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       current: 0,
-      goods: {}
+      goods: {},
+      scrollTopValue: 0,
+      ANCHOR_SCROLL_TOP: 66,
+      navbarStyle: {
+        backgroundColor: 'rgba(216, 30, 6, 0)',
+        color: 'rgba(255,255,255,0)',
+      },
+      navbarLeftImg: require('@/assets/img/44.svg'),
     }
   },
   created() {
@@ -123,27 +125,49 @@ export default {
     addShoppingCart() {
       this.$dialog
         .confirm({
-          message: '您是否要跳转到购物车?'
+          message: '您是否要跳转到购物车?',
         })
         .then(() => {
-          this.$router.push('/shopping')
+          this.$router.push({
+            name: 'shopping',
+            params: {
+              routerType: 'push',
+            },
+          })
         })
       this.$store.commit('addGoods', this.goods)
-    }
-  }
+    },
+    onScroll($event) {
+      // console.log($event.target.scrollTop)
+      this.scrollTopValue = $event.target.scrollTop
+      const opcity = this.scrollTopValue / this.ANCHOR_SCROLL_TOP
+      if (opcity >= 1) {
+        this.navbarLeftImg = require('@/assets/img/55.svg')
+      } else {
+        this.navbarLeftImg = require('@/assets/img/44.svg')
+      }
+      this.navbarStyle.backgroundColor = `rgba(216, 30, 6, ${opcity})`
+      this.navbarStyle.color = `rgba(255,255,255,${opcity})`
+    },
+  },
 }
 </script>
 <style lang="less" scoped>
 .goods-details {
+  height: 100vh;
+  overflow-y: scroll;
   padding-bottom: 94px;
   background-color: #eee;
   // 标题
   .van-nav-bar {
     height: 132px;
     width: 100%;
-    background-color: rgb(216, 30, 6);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     /deep/ .van-nav-bar__title {
-      color: #fff;
+      color: unset;
       font-weight: 700;
     }
     /deep/ .van-nav-bar__left {
@@ -152,6 +176,9 @@ export default {
         height: 52px;
       }
     }
+  }
+  /deep/ .van-hairline--bottom::after {
+    border-bottom: unset;
   }
   // 轮播图
   .my-swipe .van-swipe-item {

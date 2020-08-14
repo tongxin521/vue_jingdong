@@ -89,7 +89,13 @@ export default {
     },
     toGoodsDetails(have, id) {
       if (have) {
-        this.$router.push(`/goods/details/${id}`)
+        this.$router.push({
+          name: 'goodsdetails',
+          params: {
+            id,
+            routerType: 'push',
+          },
+        })
       } else {
         this.$toast.fail('该商品暂时没有货物，请挑选一下其他商品')
       }

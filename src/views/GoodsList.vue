@@ -33,7 +33,18 @@
 
     <!-- 标准流布局 -->
     <template v-if=" layoutType === 0 ">
-      <div class="standard" v-for="item in list" :key="item.id">
+      <div
+        class="standard"
+        v-for="item in list"
+        :key="item.id"
+        @click="$router.push({
+          name: 'goodsdetails',
+          params: {
+            id:item.id,
+            routerType: 'push',
+          },
+        })"
+      >
         <div class="left">
           <img :src="item.img" />
         </div>
@@ -51,7 +62,18 @@
     </template>
     <!-- 网格布局 -->
     <div v-if="layoutType===1" class="gridding">
-      <div class="gridding-item" v-for="item in list" :key="item.id">
+      <div
+        class="gridding-item"
+        v-for="item in list"
+        :key="item.id"
+        @click="$router.push({
+          name: 'goodsdetails',
+          params: {
+            id:item.id,
+            routerType: 'push',
+          },
+        })"
+      >
         <img :src="item.img" alt />
         <p :class="{active:!item.isHave}">
           <span v-show="item.isDirect">直营</span>

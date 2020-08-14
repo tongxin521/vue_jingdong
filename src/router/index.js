@@ -13,21 +13,27 @@ import GoodsList from '@/views/GoodsList.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/login', component: Login },
-  { path: '/register', component: Register },
+  { path: '/login', name: 'login', component: Login },
+  { path: '/register', name: 'register', component: Register },
   {
     path: '/',
     component: Home,
     redirect: '/page',
+    name: 'home',
     children: [
-      { path: '/page', component: Page },
-      { path: '/shopping', component: Shopping },
-      { path: '/my', component: My }
+      { path: '/page', name: 'page', component: Page },
+      { path: '/shopping', name: 'shopping', component: Shopping },
+      { path: '/my', name: 'my', component: My }
     ]
   },
-  { path: '/goods/details/:id', component: GoodDetails, props: true },
-  { path: '/buy/now/:id', component: BuyNow, props: true },
-  { path: '/goods/list', component: GoodsList }
+  {
+    path: '/goods/details/:id',
+    name: 'goodsdetails',
+    component: GoodDetails,
+    props: true
+  },
+  { path: '/buy/now/:id', name: 'buynow', component: BuyNow, props: true },
+  { path: '/goods/list', name: 'goodslist', component: GoodsList }
 ]
 
 const router = new VueRouter({

@@ -13,6 +13,7 @@ module.exports = {
     'space-before-function-paren': 0,
     'comma-dangle': 0,
     'dot-notation': 0,
-    'vue/no-side-effects-in-computed-propert': 0
+    'vue/no-side-effects-in-computed-propert': 0,
+    'no-undef': 0
   }
 }

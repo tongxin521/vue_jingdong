@@ -1,10 +1,16 @@
 <template>
-  <div class="page-container">
+  <div class="page-container" ref="pageRef" @scroll="onScrollChange">
     <!-- 头部搜索框区域 -->
-    <van-nav-bar class="navBar" ref="navBar" @scroll="onScrollChange">
-      <span slot="left" class="iconfont icon-gengduo"></span>
-      <van-button slot="title" icon="search" round class="btn-search">大前端开发，混合京东商城系统</van-button>
-      <span slot="right" class="iconfont icon-dkw_xiaoxi"></span>
+    <van-nav-bar class="navBar" ref="navBar" :style="navBarStyle">
+      <span slot="left" class="iconfont icon-gengduo" :style="navbarContentStyle.color"></span>
+      <van-button
+        slot="title"
+        icon="search"
+        round
+        class="btn-search"
+        :style="navbarContentStyle.backgroundColor"
+      >大前端开发，混合京东商城系统</van-button>
+      <span slot="right" class="iconfont icon-dkw_xiaoxi" :style="navbarContentStyle.color"></span>
     </van-nav-bar>
     <!-- 轮播图区域 -->
     <van-swipe :autoplay="3000" indicator-color="white">
@@ -20,34 +26,55 @@
     </div>
     <!-- 商品导航模块 -->
     <van-grid :column-num="5" class="shopping-nav">
-      <van-grid-item text="京东超市" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="京东超市"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/1.png" />
       </van-grid-item>
-      <van-grid-item text="海屯全球" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="海屯全球"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/2.png" />
       </van-grid-item>
-      <van-grid-item text="京东服饰" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="京东服饰"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/3.png" />
       </van-grid-item>
-      <van-grid-item text="京东生鲜" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="京东生鲜"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/4.png" />
       </van-grid-item>
-      <van-grid-item text="京东到家" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="京东到家"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/5.png" />
       </van-grid-item>
-      <van-grid-item text="充值缴费" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="充值缴费"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/6.png" />
       </van-grid-item>
-      <van-grid-item text="9.9元拼" @click="$router.push('/goods/list')">
+      <van-grid-item
+        text="9.9元拼"
+        @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
+      >
         <img slot="icon" src="@/assets/img/7.png" />
       </van-grid-item>
-      <van-grid-item text="领劵" @click="$router.push('/goods/list')">
+      <van-grid-item text="领劵" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
         <img slot="icon" src="@/assets/img/8.png" />
       </van-grid-item>
-      <van-grid-item text="赚钱" @click="$router.push('/goods/list')">
+      <van-grid-item text="赚钱" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
         <img slot="icon" src="@/assets/img/9.png" />
       </van-grid-item>
-      <van-grid-item text="全部" @click="$router.push('/goods/list')">
+      <van-grid-item text="全部" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
         <img slot="icon" src="@/assets/img/10.png" />
       </van-grid-item>
     </van-grid>
@@ -93,7 +120,26 @@ export default {
       time: 4 * 60 * 60 * 1000,
       isShowStatus: 0,
       activeTime: 21,
-      scrollTop: 0,
+      scrollTopValue: 0,
+      ANCHOR_SCROLL_TOP: 140,
+      // navbar  样式
+      navBarStyle: {
+        position: 'fixed',
+        top: '0px',
+        left: 0,
+        right: 0,
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+      },
+      // navbarContentStyle
+      navbarContentStyle: {
+        color: {
+          color: '#fff',
+        },
+        backgroundColor: {
+          backgroundColor: '#fff',
+          color: 'rgb(153, 153, 153)',
+        },
+      },
     }
   },
   created() {
@@ -101,11 +147,8 @@ export default {
     this.getActivityDate()
     this.getSeckillDate()
     this.getGoodsListDate()
-    this.onScrollChange()
   },
-  mounted() {
-    document.addEventListener('scroll', this.onScrollChange)
-  },
+  mounted() {},
   methods: {
     // 获取轮播图数据
     async getSlideshowDate() {
@@ -153,23 +196,31 @@ export default {
       }
     },
     onScrollChange($event) {
-      // console.log($event)
-      console.log(this.$refs.navBar)
-      this.$refs.navBar.$refs.navBar.scrollTop = 0
-      // console.log($event.target.scrollTop)
-      // console.log(this.$refs.navBar.scrollTop)
-    },
-  },
-  watch: {
-    scrollTop() {
-      this.onScrollChange()
+      this.scrollTopValue = $event.target.scrollTop
+      // console.log(this.scrollTopValue)
+      const opcity = this.scrollTopValue / this.ANCHOR_SCROLL_TOP
+      // console.log(opcity)
+      if (opcity >= 1) {
+        this.navbarContentStyle.color.color = '#000'
+        this.navbarContentStyle.backgroundColor.backgroundColor =
+          'rgb(215, 215, 215)'
+        this.navbarContentStyle.backgroundColor.color = '#fff'
+      } else {
+        this.navbarContentStyle.color.color = '#fff'
+        this.navbarContentStyle.backgroundColor.backgroundColor = '#fff'
+        this.navbarContentStyle.backgroundColor.color = 'rgb(153, 153, 153)'
+      }
+      this.navBarStyle['backgroundColor'] = `rgba(255,255,255,${opcity})`
     },
   },
 }
 </script>
 <style lang="less" scoped>
 .page-container {
+  width: 100%;
+  height: 100vh;
   padding-bottom: 96px;
+  overflow-y: scroll;
   .van-hairline--bottom::after {
     border-bottom: unset;
   }
@@ -178,12 +229,8 @@ export default {
     height: 100%;
   }
   .navBar {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    background-color: rgba(255, 255, 255, 0);
-
+    height: 120px;
+    z-index: 666;
     /deep/.van-nav-bar__title {
       max-width: unset;
       .btn-search {
@@ -198,6 +245,9 @@ export default {
           font-size: 36px;
         }
       }
+    }
+    .van-button__text {
+      color: unset !important;
     }
   }
   .iconfont {
