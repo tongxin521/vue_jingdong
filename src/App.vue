@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <transition :name="transitionName">
-      <router-view />
+      <keep-alive :include="virtualTaskStack">
+        <router-view/>
+      </keep-alive>
     </transition>
   </div>
 </template>
 
 <script>
 export default {
-  data: function () {
+  data: function() {
     return {
       transitionName: 'fold-left',
+      virtualTaskStack: ['home'],
     }
   },
   watch: {
@@ -18,24 +21,26 @@ export default {
     $route(to, from) {
       // 获取到携带的标记
       const routerType = to.params.routerType
+      console.log(to)
       if (routerType === 'push') {
         // 当进入新页面的时候，保存新页面名称到虚拟任务栈
-        // this.virtualTaskStack.push(to.name)
+        this.virtualTaskStack.push(to.name)
         // 跳转页面
         this.transitionName = 'fold-left'
       } else {
         // 执行后退操作的时候，把最后一个页面从任务栈中弹出
-        // this.virtualTaskStack.pop()
+        this.virtualTaskStack.pop()
         // 后退页面
         this.transitionName = 'fold-right'
       }
-
+      console.log(this.transitionName)
       /**
        * 初始化虚拟任务栈
        */
       if (to.params.clearTask) {
-        this.virtualTaskStack = ['imooc']
+        this.virtualTaskStack = ['home']
       }
+      console.log(this.virtualTaskStack)
     },
   },
 }

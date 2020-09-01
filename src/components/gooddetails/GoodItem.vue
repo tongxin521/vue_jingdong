@@ -1,7 +1,7 @@
 <template>
   <div class="goods-info">
     <div class="left">
-      <img :src="goodInfo.img" />
+      <img :src="goodInfo.img">
     </div>
     <div class="right">
       <p class="title">{{goodInfo.name}}</p>
@@ -11,7 +11,7 @@
 </template>
 <script>
 export default {
-  name: 'GoodItem',
+  name: 'gooditem',
   props: {
     goodId: {
       type: [Number, String],
@@ -29,9 +29,7 @@ export default {
   methods: {
     async getGoodsInfo() {
       try {
-        const { data } = await this.$http.get(
-          `/goodsDetail?goodsId=${this.goodId}&token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0`
-        )
+        const { data } = await this.$http.get(`/goodsDetail?goodsId=${this.goodId}&token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0`)
         this.goodInfo = data.data.goodsData
       } catch (err) {
         console.log('获取数据失败')

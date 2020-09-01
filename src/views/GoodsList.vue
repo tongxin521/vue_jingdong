@@ -2,15 +2,14 @@
   <div class="goods-list-container">
     <van-nav-bar title="商品列表" left-arrow @click-left="$router.back()">
       <div slot="left">
-        <img src="@/assets/img/4444.svg" alt />
+        <img src="@/assets/img/4444.svg" alt="">
       </div>
       <div slot="right">
-        <img src="@/assets/img/1111.svg" v-if="layoutType === 0" @click="layoutType = 1" />
-        <img src="@/assets/img/2222.svg" v-else-if="layoutType === 1" @click="layoutType = 2" />
-        <img src="@/assets/img/3333.svg" v-else @click="layoutType = 0" />
+        <img src="@/assets/img/1111.svg" v-if="layoutType === 0" @click="layoutType = 1">
+        <img src="@/assets/img/2222.svg" v-else-if="layoutType === 1" @click="layoutType = 2">
+        <img src="@/assets/img/3333.svg" v-else @click="layoutType = 0">
       </div>
     </van-nav-bar>
-
     <!-- 商品列表导航 -->
     <div class="goods-nav">
       <ul class="goods-hearder-nav">
@@ -25,12 +24,11 @@
         <li v-for="item in currentRankList" :key="item.id" @click="onCurrentRank(item)">
           <a href="javascript:;" :class="{activeRed:item.isCheck}">
             <span>{{item.name}}</span>
-            <img v-if="item.isCheck" src="@/assets/img/duihao.svg" alt />
+            <img v-if="item.isCheck" src="@/assets/img/duihao.svg" alt="">
           </a>
         </li>
       </ul>
     </div>
-
     <!-- 标准流布局 -->
     <template v-if=" layoutType === 0 ">
       <div
@@ -46,7 +44,7 @@
         })"
       >
         <div class="left">
-          <img :src="item.img" />
+          <img :src="item.img">
         </div>
         <div class="right">
           <p :class="{active:!item.isHave}">
@@ -74,7 +72,7 @@
           },
         })"
       >
-        <img :src="item.img" alt />
+        <img :src="item.img" alt="">
         <p :class="{active:!item.isHave}">
           <span v-show="item.isDirect">直营</span>
           <span v-show="!item.isHave">缺货</span>
@@ -93,23 +91,15 @@
 import WaterfallList from '@/components/goodslist/WaterfallList.vue'
 import { cloneDeep } from 'lodash'
 export default {
-  name: 'GoodsList',
+  name: 'goodslist',
   components: { WaterfallList },
   data() {
     return {
       layoutType: 0,
       goodsList: [],
       isShowGoodsRank: false,
-      currentCurSelList: [
-        { id: 1, name: '默认', isCheck: true },
-        { id: 2, name: '有货优先', isCheck: false },
-        { id: 3, name: '直营优先', isCheck: false },
-      ],
-      currentRankList: [
-        { id: 1, name: '默认', isCheck: true, currentCurSel: '' },
-        { id: 2, name: '价格由高到底', isCheck: false },
-        { id: 3, name: '销量由高到低', isCheck: false },
-      ],
+      currentCurSelList: [{ id: 1, name: '默认', isCheck: true }, { id: 2, name: '有货优先', isCheck: false }, { id: 3, name: '直营优先', isCheck: false }],
+      currentRankList: [{ id: 1, name: '默认', isCheck: true, currentCurSel: '' }, { id: 2, name: '价格由高到底', isCheck: false }, { id: 3, name: '销量由高到低', isCheck: false }],
       list: [],
     }
   },
@@ -119,9 +109,7 @@ export default {
   methods: {
     async getGoodsList() {
       try {
-        const { data } = await this.$http.get(
-          '/goods?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0'
-        )
+        const { data } = await this.$http.get('/goods?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0')
         this.goodsList = data.data.list
         this.list = cloneDeep(this.goodsList)
       } catch (err) {
@@ -161,15 +149,9 @@ export default {
           console.log(this.goodsList)
           return cloneDeep(this.goodsList)
         case '有货优先':
-          return [
-            ...this.goodsList.filter((item) => item.isHave === true),
-            ...this.goodsList.filter((item) => item.isHave === false),
-          ]
+          return [...this.goodsList.filter((item) => item.isHave === true), ...this.goodsList.filter((item) => item.isHave === false)]
         case '直营优先':
-          return [
-            ...this.goodsList.filter((item) => item.isDirect === true),
-            ...this.goodsList.filter((item) => item.isDirect === false),
-          ]
+          return [...this.goodsList.filter((item) => item.isDirect === true), ...this.goodsList.filter((item) => item.isDirect === false)]
         case '价格由高到底':
           return this.list.sort((goods1, goods2) => {
             return parseFloat(goods2.price) - parseFloat(goods1.price)

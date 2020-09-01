@@ -9,7 +9,7 @@
       :style="goodsItemStyles[index]"
       @click="toGoodsDetails(item.isHave, item.id)"
     >
-      <img :src="item.img" :style="imgStyles[index]" />
+      <img :src="item.img" :style="imgStyles[index]">
       <p>
         <span class="direct-sales" v-show="item.isDirect">直营</span>
         <span v-show="!item.isHave">缺货</span>
@@ -24,7 +24,7 @@
 </template>
 <script>
 export default {
-  name: 'WaterfallList',
+  name: 'waterfalllist',
   props: {
     goodsList: {
       type: Array,
@@ -51,10 +51,7 @@ export default {
       })
     },
     imgHeight() {
-      const imgHeight = Math.floor(
-        Math.random() * (this.MAX_IMG_HEIGHT - this.MIN_IMG_HEIGHT) +
-          this.MIN_IMG_HEIGHT
-      )
+      const imgHeight = Math.floor(Math.random() * (this.MAX_IMG_HEIGHT - this.MIN_IMG_HEIGHT) + this.MIN_IMG_HEIGHT)
       return imgHeight
     },
     initWaterfall() {
@@ -81,10 +78,7 @@ export default {
           }
           this.goodsItemStyles.push(goodsItemStyle)
         })
-        this.goodsViewHeight =
-          leftHeightTotal >= rightHeightTotal
-            ? leftHeightTotal + 'px'
-            : rightHeightTotal + 'px'
+        this.goodsViewHeight = leftHeightTotal >= rightHeightTotal ? leftHeightTotal + 'px' : rightHeightTotal + 'px'
       })
     },
     toGoodsDetails(have, id) {
@@ -103,7 +97,7 @@ export default {
   },
   watch: {
     goodsList: {
-      handler: function (val) {
+      handler: function(val) {
         this.initWaterfall()
         this.initImgHeight()
         return val

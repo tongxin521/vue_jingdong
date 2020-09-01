@@ -1,33 +1,33 @@
 <template>
   <div class="buy-now-container">
     <!-- 标题 -->
-    <van-nav-bar title="立即购买" left-arrow @click-left="$router.back()" />
+    <van-nav-bar title="立即购买" left-arrow @click-left="$router.back()"/>
     <good-item :goodId="id"></good-item>
     <!-- 支付方式 -->
     <div class="payment-method" @click="isShow=true">
       <div class="left">
-        <img src="@/assets/img/zhifubao.svg" />
+        <img src="@/assets/img/zhifubao.svg">
       </div>
       <div class="center">
         <p class="title">支付宝支付</p>
         <span class="price">数亿用户都在用,安全可托付</span>
       </div>
       <div class="right">
-        <img v-if="isShow" src="@/assets/img/11.svg" alt />
-        <img v-else src="@/assets/img/22.svg" alt />
+        <img v-if="isShow" src="@/assets/img/11.svg" alt="">
+        <img v-else src="@/assets/img/22.svg" alt="">
       </div>
     </div>
     <div class="payment-method" @click="isShow=false">
       <div class="left">
-        <img src="@/assets/img/weixin.png" />
+        <img src="@/assets/img/weixin.png">
       </div>
       <div class="center">
         <p class="title">微信支付</p>
         <span class="price">亿万用户选择,更快更安全</span>
       </div>
       <div class="right">
-        <img v-if="isShow" src="@/assets/img/22.svg" alt />
-        <img v-else src="@/assets/img/11.svg" alt />
+        <img v-if="isShow" src="@/assets/img/22.svg" alt="">
+        <img v-else src="@/assets/img/11.svg" alt="">
       </div>
     </div>
     <button class="btn-buy">立即购买</button>
@@ -36,7 +36,7 @@
 <script>
 import GoodItem from '@/components/gooddetails/GoodItem.vue'
 export default {
-  name: 'BuyNow',
+  name: 'buynow',
   props: {
     id: {
       type: [Number, String],

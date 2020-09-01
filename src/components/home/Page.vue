@@ -15,13 +15,13 @@
     <!-- 轮播图区域 -->
     <van-swipe :autoplay="3000" indicator-color="white">
       <van-swipe-item v-for="item in slideshow" :key="item.id">
-        <img class="slideshow-img" slot="default" :src="item.icon" />
+        <img class="slideshow-img" slot="default" :src="item.icon">
       </van-swipe-item>
     </van-swipe>
     <!-- 活动内容模块 -->
     <div class="activity">
       <div class="activity-item" v-for="item in activitys" :key="item.id">
-        <img :src="item.icon" alt />
+        <img :src="item.icon" alt="">
       </div>
     </div>
     <!-- 商品导航模块 -->
@@ -30,52 +30,52 @@
         text="京东超市"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/1.png" />
+        <img slot="icon" src="@/assets/img/1.png">
       </van-grid-item>
       <van-grid-item
         text="海屯全球"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/2.png" />
+        <img slot="icon" src="@/assets/img/2.png">
       </van-grid-item>
       <van-grid-item
         text="京东服饰"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/3.png" />
+        <img slot="icon" src="@/assets/img/3.png">
       </van-grid-item>
       <van-grid-item
         text="京东生鲜"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/4.png" />
+        <img slot="icon" src="@/assets/img/4.png">
       </van-grid-item>
       <van-grid-item
         text="京东到家"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/5.png" />
+        <img slot="icon" src="@/assets/img/5.png">
       </van-grid-item>
       <van-grid-item
         text="充值缴费"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/6.png" />
+        <img slot="icon" src="@/assets/img/6.png">
       </van-grid-item>
       <van-grid-item
         text="9.9元拼"
         @click="$router.push({name:'goodslist',params:{routerType:'push'}})"
       >
-        <img slot="icon" src="@/assets/img/7.png" />
+        <img slot="icon" src="@/assets/img/7.png">
       </van-grid-item>
       <van-grid-item text="领劵" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
-        <img slot="icon" src="@/assets/img/8.png" />
+        <img slot="icon" src="@/assets/img/8.png">
       </van-grid-item>
       <van-grid-item text="赚钱" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
-        <img slot="icon" src="@/assets/img/9.png" />
+        <img slot="icon" src="@/assets/img/9.png">
       </van-grid-item>
       <van-grid-item text="全部" @click="$router.push({name:'goodslist',params:{routerType:'push'}})">
-        <img slot="icon" src="@/assets/img/10.png" />
+        <img slot="icon" src="@/assets/img/10.png">
       </van-grid-item>
     </van-grid>
     <!-- 京东秒杀模块 -->
@@ -86,18 +86,16 @@
       </div>
       <div class="seckill-list">
         <div class="seckill-list-item" v-for="item in seckill" :key="item.id">
-          <img :src="item.icon" alt />
+          <img :src="item.icon" alt="">
           <span class="price">￥{{ item.price }}</span>
           <span class="current-price">￥{{ item.oldPrice }}</span>
         </div>
       </div>
     </div>
-
     <!-- 好货限量抢购模块 -->
     <div class="shopping-run-on">
-      <img src="@/assets/img/advertising.gif" alt />
+      <img src="@/assets/img/advertising.gif" alt="">
     </div>
-
     <!-- 商品列表 -->
     <waterfall-list :goodsList="goodsList"></waterfall-list>
   </div>
@@ -106,7 +104,7 @@
 import WaterfallList from '@/components/goodslist/WaterfallList.vue'
 import CountDown from '@/components/countdown/CountDown.vue'
 export default {
-  name: 'Page',
+  name: 'page',
   components: {
     WaterfallList,
     CountDown,
@@ -153,9 +151,7 @@ export default {
     // 获取轮播图数据
     async getSlideshowDate() {
       try {
-        const { data } = await this.$http.get(
-          '/swiper?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0'
-        )
+        const { data } = await this.$http.get('/swiper?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0')
         this.slideshow = data.data.list
       } catch (err) {
         console.log('获取数据失败')
@@ -164,9 +160,7 @@ export default {
     // 获取活动内容
     async getActivityDate() {
       try {
-        const { data } = await this.$http.get(
-          '/activitys?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0'
-        )
+        const { data } = await this.$http.get('/activitys?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0')
         this.activitys = data.data.list
       } catch (err) {
         console.log('获取数据失败')
@@ -175,9 +169,7 @@ export default {
     // 获取秒杀数据
     async getSeckillDate() {
       try {
-        const { data } = await this.$http.get(
-          '/seconds?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0'
-        )
+        const { data } = await this.$http.get('/seconds?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0')
         // console.log(data)
         this.seckill = data.data.list
       } catch (err) {
@@ -187,9 +179,7 @@ export default {
     // 获取商品列表数据
     async getGoodsListDate() {
       try {
-        const { data } = await this.$http.get(
-          '/goods?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0'
-        )
+        const { data } = await this.$http.get('/goods?token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0')
         this.goodsList = data.data.list
       } catch (err) {
         console.log('获取商品列表数据')
@@ -202,8 +192,7 @@ export default {
       // console.log(opcity)
       if (opcity >= 1) {
         this.navbarContentStyle.color.color = '#000'
-        this.navbarContentStyle.backgroundColor.backgroundColor =
-          'rgb(215, 215, 215)'
+        this.navbarContentStyle.backgroundColor.backgroundColor = 'rgb(215, 215, 215)'
         this.navbarContentStyle.backgroundColor.color = '#fff'
       } else {
         this.navbarContentStyle.color.color = '#fff'

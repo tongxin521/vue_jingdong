@@ -7,6 +7,7 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import './assets/font/iconfont.css'
 import './axios/index.js'
+import './style/index.css'
 Vue.use(Vant)
 
 Vue.config.productionTip = false

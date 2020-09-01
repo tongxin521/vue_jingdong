@@ -1,48 +1,58 @@
 <template>
   <div class="shopping-container">
-    <van-nav-bar title="购物车" />
-
+    <van-nav-bar title="购物车"/>
     <div class="goods" v-for="item in $store.state.goodsList" :key="item.id">
-      <div class="left" @click="$store.commit('checked',item.id)">
-        <img v-if="item.Checked" src="@/assets/img/11.svg" alt />
-        <img v-else src="@/assets/img/22.svg" alt />
+      <div class="left" @click="$store.commit('checked', item.id)">
+        <img v-if="item.Checked" src="@/assets/img/11.svg" alt="">
+        <img v-else src="@/assets/img/22.svg" alt="">
       </div>
       <div class="center">
-        <img :src="item.img" alt />
+        <img :src="item.img" alt="">
       </div>
       <div class="right">
         <p>
           <span v-if="item.isDirect">直营</span>
-          {{item.name}}
+          {{ item.name }}
         </p>
         <div>
-          <span>￥{{item.price}}</span>
+          <span>￥{{ item.price }}</span>
           <div>
-            <span @click="$store.commit('reduce',item.id)">-</span>
-            <span>{{item.num}}</span>
-            <span @click="$store.commit('add',item.id)">+</span>
+            <span @click="$store.commit('reduce', item.id)">-</span>
+            <span>{{ item.num }}</span>
+            <span @click="$store.commit('add', item.id)">+</span>
           </div>
         </div>
       </div>
     </div>
-
     <div class="footer">
       <!-- 全选 -->
       <div class="check-all" @click="$store.commit('allChecked')">
-        <img v-if="$store.state.isAllChecked" src="@/assets/img/11.svg" alt />
-        <img v-else src="@/assets/img/22.svg" alt />
+        <img v-if="$store.state.isAllChecked" src="@/assets/img/11.svg" alt="">
+        <img v-else src="@/assets/img/22.svg" alt="">
         <span>全选</span>
       </div>
       <!-- 总价 -->
       <div class="total-prices">
         <div>
           <span>合计:</span>
-          <span class="fw">￥{{$store.getters.totalPrices===0?'0.00':$store.getters.totalPrices}}</span>
+          <span class="fw">
+            ￥{{
+            $store.getters.totalPrices === 0
+            ? '0.00'
+            : $store.getters.totalPrices
+            }}
+          </span>
         </div>
         <div>
           <div>
             <span>总额:</span>
-            <span class="fw">￥{{$store.getters.totalPrices===0?'0.00':$store.getters.totalPrices}}</span>
+            <span class="fw">
+              ￥{{
+              $store.getters.totalPrices === 0
+              ? '0.00'
+              : $store.getters.totalPrices
+              }}
+            </span>
           </div>
           <div>
             <span>立减:</span>
@@ -52,7 +62,7 @@
       </div>
       <!-- 结算 -->
       <div class="settle-accounts">
-        <button>去结算({{$store.getters.checkedNum}})</button>
+        <button>去结算({{ $store.getters.checkedNum }})</button>
       </div>
     </div>
   </div>
@@ -65,6 +75,7 @@ export default {
 <style lang="less" scoped>
 .shopping-container {
   padding-bottom: 210px;
+  height: 100%;
   .van-nav-bar {
     height: 140px;
     margin-bottom: 4px;

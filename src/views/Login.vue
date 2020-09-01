@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <van-nav-bar class="bd" :title="'登录'" left-arrow @click-left="$router.back()" />
+    <van-nav-bar class="bd" :title="'登录'" left-arrow @click-left="$router.back()"/>
     <van-form @submit="onSubmit">
       <van-field
         class="bd"

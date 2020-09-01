@@ -3,13 +3,13 @@
     <!-- 标题 -->
     <van-nav-bar title="商品详情" :style="navbarStyle">
       <div slot="left" @click="$router.back()">
-        <img :src="navbarLeftImg" alt />
+        <img :src="navbarLeftImg" alt="">
       </div>
     </van-nav-bar>
     <!-- 轮播图 -->
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white" @change="onChange">
       <van-swipe-item v-for="(item, index) in goods.swiperImgs" :key="index">
-        <img slot="default" :src="item" alt />
+        <img slot="default" :src="item" alt="">
       </van-swipe-item>
       <template #indicator>
         <div class="custom-indicator">{{ current + 1 }}/4</div>
@@ -31,27 +31,27 @@
       <div slot="label">
         <ul>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>可配送海外</span>
           </li>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>京东发货&amp;售后</span>
           </li>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>京准达</span>
           </li>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>211限时达</span>
           </li>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>可自提</span>
           </li>
           <li>
-            <img src="@/assets/img/33.svg" alt />
+            <img src="@/assets/img/33.svg" alt="">
             <span>不可使用优惠卷</span>
           </li>
         </ul>
@@ -61,7 +61,7 @@
     <div class="goods-show">
       <ul>
         <li v-for="(item, index) in goods.detailImgs" :key="index">
-          <img :src="item" alt />
+          <img :src="item" alt="">
         </li>
       </ul>
     </div>
@@ -83,7 +83,7 @@
 </template>
 <script>
 export default {
-  name: 'GoodDetails',
+  name: 'goodsdetails',
   props: {
     id: {
       type: [String, Number],
@@ -113,9 +113,7 @@ export default {
     // 获取商品数据
     async getGoodsDate() {
       try {
-        const { data } = await this.$http.get(
-          `/goodsDetail?goodsId=${this.id}&token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0`
-        )
+        const { data } = await this.$http.get(`/goodsDetail?goodsId=${this.id}&token=8f497f50-d6fd-11ea-8930-e5fa1f6c40e0`)
         this.goods = data.data.goodsData
       } catch (err) {
         console.log('获取数据失败')

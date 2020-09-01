@@ -4,13 +4,13 @@
       <router-view></router-view>
     </transition>
     <van-grid :column-num="3" class="bt-nav">
-      <van-grid-item text="首页" to="/page">
+      <van-grid-item text="首页" :to="{ name: 'page', params: { clearTask: 'tabs' } }">
         <i slot="icon" class="iconfont icon-1"></i>
       </van-grid-item>
-      <van-grid-item text="购物车" to="shopping">
+      <van-grid-item text="购物车" :to="{ name: 'shopping', params: { clearTask: 'tabs' } }">
         <i slot="icon" class="iconfont icon-gouwuche"></i>
       </van-grid-item>
-      <van-grid-item text="我的" to="my">
+      <van-grid-item text="我的" :to="{ name: 'my', params: { clearTask: 'tabs' } }">
         <i slot="icon" class="iconfont icon-wode2"></i>
       </van-grid-item>
     </van-grid>
@@ -18,7 +18,7 @@
 </template>
 <script>
 export default {
-  name: 'Home',
+  name: 'home',
 }
 </script>
 <style lang="less" scoped>

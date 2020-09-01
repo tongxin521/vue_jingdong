@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: 'CoutDown',
+  name: 'coutdown',
   props: {
     activeTime: {
       type: Number,
@@ -49,8 +49,7 @@ export default {
       const countDownHours = this.activeTime - currentTime.getHours() - 1
       const countDownMinutes = 60 - currentTime.getMinutes() - 1
       const countDownSeconds = 60 - currentTime.getSeconds()
-      this.activeCountDown =
-        countDownHours * 3600 + countDownMinutes * 60 + countDownSeconds
+      this.activeCountDown = countDownHours * 3600 + countDownMinutes * 60 + countDownSeconds
       this.clock = setInterval(() => {
         this.activeCountDown--
       }, 1000)
